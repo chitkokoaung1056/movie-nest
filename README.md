@@ -1,37 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MovieNest 🎬
 
-## Getting Started
+MovieNest is a modern movie browsing web application built with Next.js (App Router), TypeScript, and Tailwind CSS, designed to provide a clean and fast experience for discovering trending and popular movies.
 
-First, run the development server:
 
-```bash
+---
+
+🚀 Features
+
+🔍 Search Movies – Quickly search movies by title
+
+🔥 Trending Section – Displays top trending movies (Top 5)
+
+🎞️ Movie Grid – Browse a list of movies with pagination
+
+📱 Responsive UI – Optimized for mobile, tablet, and desktop
+
+⚡ Fast Performance – Built with Next.js App Router
+
+🎨 Modern UI – Styled using Tailwind CSS and shadcn/ui components
+
+
+
+---
+
+🛠️ Tech Stack
+
+Framework: Next.js 16 (App Router)
+
+Language: TypeScript
+
+Styling: Tailwind CSS
+
+UI Components: shadcn/ui
+
+Icons: Lucide React
+
+State Handling: React Hooks
+
+Backend / Database: Supabase (used for trending movies data)
+
+API: (Optional) TMDB 
+
+
+
+---
+
+📸 UI Overview
+
+Hero section with background image and search bar
+
+Trending movies powered by Supabase (Top 5 ranked movies)
+
+Paginated movie grid (default 20 items per page)
+
+Smooth responsive layout for all devices
+
+Hero section with background image and search bar
+
+Trending movies with ranked display (1–5)
+
+Paginated movie grid (default 20 items per page)
+
+Smooth responsive layout for all devices
+
+
+
+---
+
+⚙️ Getting Started
+
+1. Clone the repository
+
+git clone https://github.com/chitkokoaung1056/movienest.git
+cd movienest
+
+2. Install dependencies
+
+npm install
+
+3. Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open in browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+🔑 Environment Variables (Optional)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If using TMDB API or external service:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+NEXT_PUBLIC_TMDB_API_KEY=your_api_key_here
+NEXT_PUBLIC_BASE_URL=https://api.themoviedb.org/3
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# movie-nest
+📦 Build for Production
+
+npm run build
+npm start
+
+
+---
+
+✨ Future Improvements
+
+❤️ Favorite system
+
+🌙 Dark/light theme toggle
+
+🎯 Advanced filtering (genre, year, rating)
+
+🔐 User authentication (Supabase)
+
+
+
+---
+
+🧑‍💻 Author
+
+Built with ❤️ by Chit Ko Ko Aung
+
+
