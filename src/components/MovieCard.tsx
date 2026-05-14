@@ -54,7 +54,7 @@ export function MovieCard({ movie }: Props) {
           alt={movie.title}
           fill
           loading="lazy"
-          sizes="100vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           className="object-cover transition duration-700 group-hover:scale-110"
         />
 
