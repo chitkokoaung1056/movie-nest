@@ -1,7 +1,8 @@
 import { HeroSection } from "@/components/HeroSection";
 import { MovieGrid } from "@/components/MovieGrid";
-import { MoviePagination } from "@/components/Pagination";
+import { MoviePagination } from "@/components/MoviePagination";
 import MovieGridSkeleton from "@/components/skeleton/MovieGridSkeleton";
+import { MoviePaginationSkeleton } from "@/components/skeleton/MoviePaginationSkeleton";
 import { TrendingMovies } from "@/components/TrendingMovies";
 import type { SearchParams } from "@/types/searchParams";
 import { Suspense } from "react";
@@ -21,7 +22,9 @@ export default async function HomePage({
         <MovieGrid searchParams={searchParams} />
       </Suspense>
 
-      {/* <MoviePagination totalPages={10} /> */}
+      <Suspense fallback={<MoviePaginationSkeleton />}>
+        <MoviePagination totalPages={500} />
+      </Suspense>
     </main>
   );
 }
