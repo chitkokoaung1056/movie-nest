@@ -4,6 +4,7 @@ import { SectionHeader } from "./SectionHeader";
 import { MovieType } from "@/types/movie";
 import { SearchX } from "lucide-react";
 import { getMovies, searchMovies } from "@/lib/services/movie.service";
+import { MoviePagination } from "./MoviePagination";
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -21,6 +22,7 @@ export async function MovieGrid({ searchParams }: Props) {
     : await getMovies(page);
 
   const movies: MovieType[] = data.results;
+  const totalPages = data.total_pages || 1;
 
   return (
     <section className="mx-auto px-1 sm:px-6 max-w-7xl">
@@ -66,6 +68,12 @@ export async function MovieGrid({ searchParams }: Props) {
           ))}
         </div>
       )}
+
+      <MoviePagination
+        currentPage={page}
+        searchQuery={searchQuery}
+        totalPages={totalPages}
+      />
     </section>
   );
 }
