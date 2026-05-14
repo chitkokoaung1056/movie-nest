@@ -1,6 +1,6 @@
-'use server'
+"use server";
 
-import { cacheLife, revalidatePath } from "next/cache";
+import { cacheLife } from "next/cache";
 import { createClient } from "../supabase/server";
 import { TrendingMovieDataType } from "@/types/movie";
 
@@ -87,7 +87,6 @@ export async function increaseMovieView(movie: TrendingMovieDataType) {
     updated_at: new Date().toISOString(),
   });
 
-  revalidatePath("/");
   if (error) {
     throw new Error(error.message);
   }
@@ -114,7 +113,6 @@ export async function getMovieViews(movieId: number) {
 export async function getTrendingMovies(
   limit: number = 5,
 ): Promise<TrendingMovieDataType[]> {
-  
   const supabase = await createClient();
 
   const { data, error } = await supabase
