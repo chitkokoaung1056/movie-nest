@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export default function MovieGridSkeleton() {
   return (
-    <section className="mx-auto max-w-7xl sm:px-6 px-1 pb-24">
+    <section className="mx-auto max-w-7xl sm:px-6 px-1">
       {/* header skeleton */}
       <div className="mb-8 space-y-2">
         <Skeleton className="h-8 w-64" />

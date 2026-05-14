@@ -1,9 +1,9 @@
 import { SearchParams } from "@/types/searchParams";
 import { MovieCard } from "./MovieCard";
 import { SectionHeader } from "./SectionHeader";
-import { getMovies, searchMovies } from "@/lib/tmdb";
 import { MovieType } from "@/types/movie";
 import { SearchX } from "lucide-react";
+import { getMovies, searchMovies } from "@/lib/services/movie.service";
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -23,7 +23,7 @@ export async function MovieGrid({ searchParams }: Props) {
   const movies: MovieType[] = data.results;
 
   return (
-    <section className="mx-auto px-1 pb-24 sm:px-6 max-w-7xl">
+    <section className="mx-auto px-1 sm:px-6 max-w-7xl">
       <SectionHeader
         title={searchQuery ? `Search: ${searchQuery}` : "All Movies"}
         description="Discover trending and popular movies."

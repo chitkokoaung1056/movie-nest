@@ -9,7 +9,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
 import { useSearchParams } from "next/navigation";
 
 type Props = {
@@ -18,78 +17,66 @@ type Props = {
 
 export function MoviePagination({ totalPages }: Props) {
   const searchParams = useSearchParams();
-
   const currentPage = Number(searchParams.get("page") || 1);
-  const searchQuery = searchParams.get("searchQuery");
+  const maxPages = Math.min(totalPages, 500);
 
   const getPageNumbers = () => {
-    const delta = 2;
-    const range: number[] = [];
-    const rangeWithDots: (string | number)[] = [];
-    let last: number | undefined;
+    const pages: (number | string)[] = [];
 
-    for (let i = 1; i <= totalPages; i++) {
-      if (
-        i === 1 ||
-        i === totalPages ||
-        (i >= currentPage - delta && i <= currentPage + delta)
-      ) {
-        range.push(i);
-      }
+    pages.push(1);
+
+    if (currentPage > 3) pages.push("...");
+
+    for (
+      let i = Math.max(2, currentPage - 1);
+      i <= Math.min(maxPages - 1, currentPage + 1);
+      i++
+    ) {
+      pages.push(i);
     }
 
-    for (const i of range) {
-      if (last !== undefined) {
-        if (i - last === 2) rangeWithDots.push(last + 1);
-        else if (i - last !== 1) rangeWithDots.push("...");
-      }
-      rangeWithDots.push(i);
-      last = i;
-    }
+    if (currentPage < maxPages - 2) pages.push("...");
 
-    return rangeWithDots;
+    if (maxPages > 1) pages.push(maxPages);
+
+    return pages;
   };
 
   const pageNumbers = getPageNumbers();
 
   const buildUrl = (page: number) => {
-    const params = new URLSearchParams();
-
+    const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
-
-    if (searchQuery) {
-      params.set("searchQuery", searchQuery);
-    }
-
     return `?${params.toString()}`;
   };
 
-  if (totalPages <= 1) return null;
+  if (maxPages <= 1) return null;
 
   return (
-    <div className="flex justify-center px-4 pb-20">
+    <div className="flex justify-center px-2 sm:px-4 pb-16 pt-10">
       <Pagination>
-        <PaginationContent className="flex-wrap gap-2">
-          {/* Previous */}
+        <PaginationContent className="flex-wrap gap-1.5 sm:gap-2">
+
+          {/* PREVIOUS */}
           <PaginationItem>
             <PaginationPrevious
               href={buildUrl(Math.max(currentPage - 1, 1))}
-              className={`h-10 rounded-xl border border-slate-700 bg-slate-800 px-4 text-slate-200 hover:bg-slate-700 ${
+              className={`h-8 sm:h-10 px-2 sm:px-4 rounded-lg sm:rounded-xl border border-slate-700 bg-slate-800 text-xs sm:text-sm text-slate-200 transition-all hover:bg-slate-700 ${
                 currentPage === 1 ? "pointer-events-none opacity-40" : ""
               }`}
             />
           </PaginationItem>
 
-          {/* Pages */}
-          {pageNumbers.map((item, i) => (
-            <PaginationItem key={i}>
+          {/* PAGES */}
+          {pageNumbers.map((item, index) => (
+            <PaginationItem key={index}>
               {item === "..." ? (
-                <PaginationEllipsis className="text-slate-500" />
+                <PaginationEllipsis className="text-slate-500 scale-75 sm:scale-100" />
               ) : (
                 <PaginationLink
                   href={buildUrl(item as number)}
                   isActive={item === currentPage}
-                  className={`h-10 min-w-10 rounded-xl px-4 ${
+                  className={`h-8 sm:h-10 min-w-8 sm:min-w-10 px-2 sm:px-4 text-xs sm:text-sm rounded-lg sm:rounded-xl transition-all ${
                     item === currentPage
                       ? "bg-white text-black"
                       : "border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700"
@@ -101,17 +88,16 @@ export function MoviePagination({ totalPages }: Props) {
             </PaginationItem>
           ))}
 
-          {/* Next */}
+          {/* NEXT */}
           <PaginationItem>
             <PaginationNext
-              href={buildUrl(Math.min(currentPage + 1, totalPages))}
-              className={`h-10 rounded-xl border border-slate-700 bg-slate-800 px-4 text-slate-200 hover:bg-slate-700 ${
-                currentPage === totalPages
-                  ? "pointer-events-none opacity-40"
-                  : ""
+              href={buildUrl(Math.min(currentPage + 1, maxPages))}
+              className={`h-8 sm:h-10 px-2 sm:px-4 rounded-lg sm:rounded-xl border border-slate-700 bg-slate-800 text-xs sm:text-sm text-slate-200 transition-all hover:bg-slate-700 ${
+                currentPage === maxPages ? "pointer-events-none opacity-40" : ""
               }`}
             />
           </PaginationItem>
+
         </PaginationContent>
       </Pagination>
     </div>

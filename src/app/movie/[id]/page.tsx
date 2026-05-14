@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getMovieById, getMovieVideos } from "@/lib/tmdb";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Star } from "lucide-react";
 import { MovieType } from "@/types/movie";
 import { FallbackImage } from "@/components/FallbackImage";
 import { TrailerButton } from "@/components/TrailarButton";
+import { getMovieById, getMovieVideos } from "@/lib/services/movie.service";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -18,8 +18,7 @@ export default async function MovieDetailPage({ params }: Props) {
   const videos = await getMovieVideos(id);
 
   const trailer = videos.results.find(
-    (video: any) =>
-      video.type === "Trailer" && video.site === "YouTube",
+    (video: any) => video.type === "Trailer" && video.site === "YouTube",
   );
 
   const genres = movie.genres || [];
@@ -86,9 +85,7 @@ export default async function MovieDetailPage({ params }: Props) {
               </h1>
 
               {movie.tagline && (
-                <p className="text-lg italic text-slate-400">
-                  {movie.tagline}
-                </p>
+                <p className="text-lg italic text-slate-400">{movie.tagline}</p>
               )}
             </div>
 
@@ -153,9 +150,7 @@ export default async function MovieDetailPage({ params }: Props) {
 
             {/* OVERVIEW */}
             <div className="space-y-3">
-              <h2 className="text-xl font-semibold">
-                Overview
-              </h2>
+              <h2 className="text-xl font-semibold">Overview</h2>
 
               <p className="max-w-3xl leading-8 text-slate-300">
                 {movie.overview}
@@ -175,9 +170,7 @@ export default async function MovieDetailPage({ params }: Props) {
                     Status
                   </p>
 
-                  <p className="mt-1 text-sm text-slate-200">
-                    {movie.status}
-                  </p>
+                  <p className="mt-1 text-sm text-slate-200">{movie.status}</p>
                 </div>
               )}
 

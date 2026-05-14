@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { Star } from "lucide-react";
 import { FallbackImage } from "./FallbackImage";
+import { startTransition } from "react";
+import { increaseMovieView } from "@/lib/services/movie.service";
+import { TrendingMovieDataType } from "@/types/movie";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   movie: {
@@ -15,8 +19,31 @@ type Props = {
 };
 
 export function MovieCard({ movie }: Props) {
+  const searchParams = useSearchParams();
+
+  const page = searchParams.get("page");
+  const searchQuery = searchParams.get("searchQuery");
   // convert TMDB /10 rating to /5 stars
   const stars = Math.round(movie.rating / 2);
+
+  const updateViews = () => {
+    startTransition(async () => {
+      const trendingMovie: TrendingMovieDataType = {
+        movie_id: movie.id,
+        poster: movie.image,
+        title: movie.title,
+      };
+      await increaseMovieView(trendingMovie);
+    });
+  };
+  const query = new URLSearchParams();
+
+  if (page) query.set("page", page);
+  if (searchQuery) query.set("searchQuery", searchQuery);
+
+  const href = `/movie/${movie.id}${
+    query.toString() ? `?${query.toString()}` : ""
+  }`;
 
   return (
     <div className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-white/20">
@@ -62,8 +89,9 @@ export function MovieCard({ movie }: Props) {
 
         {/* BUTTON */}
         <Link
-          href={`/movie/${movie.id}`}
+          href={href}
           className="inline-flex w-full items-center justify-center rounded-xl bg-white px-3 py-2 text-xs font-medium text-black transition hover:bg-white/90"
+          onClick={() => updateViews()}
         >
           See More
         </Link>

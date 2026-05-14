@@ -19,7 +19,10 @@ export function TrailerModal({
 }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-white/10 bg-slate-950 p-0 sm:max-w-4xl overflow-hidden">
+      <DialogContent
+        aria-describedby={undefined}
+        className="overflow-hidden border-white/10 bg-slate-950 p-0 sm:max-w-4xl"
+      >
         <DialogTitle className="sr-only">
           Movie Trailer
         </DialogTitle>

@@ -29,3 +29,10 @@ export type MovieType = {
 
   revenue: number;
 };
+
+export type TrendingMovieDataType = {
+  movie_id: number;
+  title: string;
+  poster: string;
+  views?: string;
+};
